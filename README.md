@@ -107,57 +107,69 @@ Missing information should be identified rather than silently invented.
 ```text
 data-architecture-designer/
 │
-├── SKILL.md
+├── .github/
+│   └── skills/
+│       └── data-architecture-designer/
+│           │
+│           ├── SKILL.md
+│           │
+│           ├── references/
+│           │   ├── decision-framework.md
+│           │   ├── architecture-patterns.md
+│           │   └── quality-attributes.md
+│           │
+│           ├── template/
+│           │   └── architecture-output.md
+│           │
+│           └── examples/
+│               └── batch-analytics-platform.md
 │
 ├── README.md
-│
-├── references/
-│   ├── decision-framework.md
-│   ├── architecture-patterns.md
-│   └── quality-attributes.md
-│
-├── template/
-│   └── architecture-output.md
-│
-└── examples/
-    └── batch-analytics-platform.md
+└── LICENSE
 ```
 
-### `SKILL.md`
+The Skill follows the project-level Agent Skills structure used by compatible
+AI coding agents.
 
-Defines when the Skill should be used and the architecture workflow the
-agent should follow.
+### [`SKILL.md`](.github/skills/data-architecture-designer/SKILL.md)
 
-### `references/decision-framework.md`
+The main entry point for the Agent Skill.
+
+Defines when the Skill should be activated, the mandatory execution rules,
+the architecture workflow, the complexity test, and the quality gate the
+agent should apply before producing a recommendation.
+
+### [`references/decision-framework.md`](.github/skills/data-architecture-designer/references/decision-framework.md)
 
 Defines how architectural decisions should be evaluated, including
-alternatives, trade-offs, complexity checks, architecture smells, and ADRs.
+alternatives, trade-offs, complexity checks, architecture smells, and
+Architecture Decision Records (ADRs).
 
-### `references/architecture-patterns.md`
+### [`references/architecture-patterns.md`](.github/skills/data-architecture-designer/references/architecture-patterns.md)
 
 Provides guidance for evaluating patterns such as:
 
 - Data Warehouse;
 - Data Lake;
 - Lakehouse;
-- Medallion;
-- Batch;
+- Medallion Architecture;
+- Batch Processing;
 - Streaming;
 - Lambda;
 - Kappa;
 - Event-Driven Architecture;
 - Data Mesh;
-- centralized and federated approaches.
+- centralized, federated, and hybrid approaches.
 
-### `references/quality-attributes.md`
+### [`references/quality-attributes.md`](.github/skills/data-architecture-designer/references/quality-attributes.md)
 
-Provides guidance for evaluating architecturally significant requirements
-such as:
+Provides guidance for evaluating architecturally significant quality
+attributes such as:
 
-- latency;
+- latency and data freshness;
 - scalability;
-- reliability;
-- security;
+- reliability and recoverability;
+- security and privacy;
 - governance;
 - lineage;
 - observability;
@@ -165,15 +177,20 @@ such as:
 - interoperability;
 - cost efficiency.
 
-### `template/architecture-output.md`
+### [`template/architecture-output.md`](.github/skills/data-architecture-designer/template/architecture-output.md)
 
-Defines a consistent output structure for architecture recommendations,
-including diagrams, decisions, risks, trade-offs, and ADRs.
+Defines the output contract for a full architecture recommendation,
+including logical architecture, technology mapping, decisions, alternatives,
+trade-offs, risks, and ADRs.
 
-### `examples/`
+### [`examples/`](.github/skills/data-architecture-designer/examples/)
 
 Contains scenarios used to test whether the Skill produces architecture
 proportional to the actual requirements.
+
+The first example deliberately tests whether the agent can resist unnecessary
+streaming, distributed processing, Kubernetes, Data Mesh, and other forms of
+architectural over-engineering.
 
 ---
 
@@ -209,7 +226,7 @@ complexity.
 
 See:
 
-[`examples/batch-analytics-platform.md`](examples/batch-analytics-platform.md)
+[`examples/batch-analytics-platform.md`](.github/skills/data-architecture-designer/examples/batch-analytics-platform.md)
 
 ---
 
