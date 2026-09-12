@@ -1,19 +1,25 @@
 # Data Architecture Designer
 
-> A reusable AI Agent Skill for designing modern data architectures through
-> requirements, constraints, quality attributes, and explicit architectural
-> trade-offs.
+> A reusable Agent Skill for designing data architectures through requirements,
+> quality attributes, explicit trade-offs, and justified architectural decisions.
+
+[![Release](https://img.shields.io/github/v/release/paulojlima/data-architecture-designer)](https://github.com/paulojlima/data-architecture-designer/releases)
+[![License](https://img.shields.io/github/license/paulojlima/data-architecture-designer)](LICENSE)
+
+**Complexity is acceptable. Unjustified complexity is not.**
+
+---
 
 ## Why this project?
 
-AI can generate impressive architecture diagrams and technology stacks in
-seconds.
+AI agents can generate impressive architecture diagrams and technology stacks
+in seconds.
 
 The harder problem is determining whether those architectural decisions are
 actually justified.
 
-**Data Architecture Designer** is an experimental reusable Agent Skill that
-encodes a structured architecture decision process.
+**Data Architecture Designer** encodes a structured architecture decision
+process into a reusable Agent Skill.
 
 Instead of starting with:
 
@@ -24,81 +30,143 @@ the Skill starts with:
 > What problem are we solving, what constraints exist, and which quality
 > attributes actually matter?
 
-The goal is not to generate the most sophisticated architecture.
+The objective is not to generate the most sophisticated architecture.
 
-The goal is to recommend the **simplest architecture that satisfies the
-requirements with acceptable trade-offs**.
+It is to recommend the **simplest architecture that satisfies the requirements
+with acceptable trade-offs**.
 
 ---
 
 ## What it does
 
-The Skill guides an AI agent through a structured architecture workflow:
+The Skill guides an AI agent through a requirements-first architecture workflow:
 
 ```text
 Business Context
-       ↓
+        ↓
 Data Characteristics
-       ↓
-Quality Attributes
-       ↓
+        ↓
+Architecturally Significant Quality Attributes
+        ↓
 Constraints
-       ↓
-Architecture Patterns
-       ↓
-Alternatives
-       ↓
-Trade-offs
-       ↓
-Architecture Decisions
-       ↓
+        ↓
+Candidate Architecture Patterns
+        ↓
+Logical Architecture
+        ↓
+Alternatives & Trade-offs
+        ↓
+Complexity Test
+        ↓
 Technology Mapping
-       ↓
-Risks & ADRs
+        ↓
+Risks
+        ↓
+Architecture Decision Records
 ```
 
-It can be used to help:
+It can help with:
 
-- design a new data platform;
-- review an existing data architecture;
-- evaluate modernization approaches;
-- compare architectural patterns;
-- reason about batch vs streaming;
-- evaluate Warehouse vs Lakehouse;
-- identify unnecessary architectural complexity;
-- document Architecture Decision Records (ADRs).
+- designing new data platforms;
+- reviewing existing data architectures;
+- defining target architectures;
+- evaluating modernization approaches;
+- comparing architectural patterns;
+- reasoning about batch vs streaming;
+- evaluating Data Warehouse vs Lakehouse;
+- evaluating centralized vs federated approaches;
+- identifying unnecessary architectural complexity;
+- documenting Architecture Decision Records (ADRs).
 
 ---
 
-## Design Principles
+## Core Design Principles
 
 ### Requirements before technology
 
-Technology selection should follow requirements analysis, not precede it.
+Technology selection follows requirements analysis, not the other way around.
 
 ### Architecture before products
 
-Define the logical architecture and required capabilities before mapping
-them to vendor-specific services.
+Define logical capabilities before mapping them to vendor-specific services.
 
 ### Explicit trade-offs
 
-Architectural decisions should explain both what is gained and what is
-sacrificed.
+Architectural decisions should explain what is gained, what is sacrificed,
+and why the trade-off is acceptable.
 
 ### Simplicity is a feature
 
-Streaming, distributed processing, Kubernetes, Data Mesh, or multiple
-processing engines should only appear when requirements justify them.
+Streaming, distributed processing, Kubernetes, Data Mesh, multiple processing
+engines, or additional storage platforms should only appear when requirements
+justify them.
 
-### Vendor-neutral by default
+### Vendor-neutral reasoning
 
 The Skill does not default to Azure, AWS, GCP, Databricks, Snowflake,
 Microsoft Fabric, or another platform.
 
+A strategic platform may be a valid constraint, but it should influence
+technology mapping rather than replace architectural reasoning.
+
 ### Assumptions must be visible
 
 Missing information should be identified rather than silently invented.
+
+---
+
+## Quick Start
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/paulojlima/data-architecture-designer.git
+cd data-architecture-designer
+```
+
+### 2. Open it in VS Code
+
+```bash
+code .
+```
+
+The project-level Agent Skill is located at:
+
+```text
+.github/skills/data-architecture-designer/
+```
+
+Compatible AI coding agents can discover the Skill from this workspace
+structure.
+
+### 3. Use your coding agent
+
+Open your AI coding agent in the repository and ask for a data architecture.
+
+For example:
+
+```text
+Design a data architecture for an e-commerce platform.
+
+We have PostgreSQL, Salesforce and application events.
+
+Approximately 5 TB of historical data exists today and we expect
+100 GB of new data per day.
+
+Finance reporting can tolerate a 4-hour delay, but fraud detection
+requires relevant events within 10 seconds.
+
+The platform must support BI, data science and regulatory lineage.
+
+Compare viable architectural approaches and explain the trade-offs.
+```
+
+The agent should determine which requirements justify capabilities such as
+batch processing, streaming, storage patterns, governance, and technology
+choices.
+
+You should not need to tell the agent which architecture or technologies
+to select.
 
 ---
 
@@ -128,22 +196,17 @@ data-architecture-designer/
 └── LICENSE
 ```
 
-The Skill follows the project-level Agent Skills structure used by compatible
-AI coding agents.
-
 ### [`SKILL.md`](.github/skills/data-architecture-designer/SKILL.md)
 
 The main entry point for the Agent Skill.
 
-Defines when the Skill should be activated, the mandatory execution rules,
-the architecture workflow, the complexity test, and the quality gate the
-agent should apply before producing a recommendation.
+Defines activation guidance, mandatory execution rules, the architecture
+workflow, the Complexity Test, and the architecture quality gate.
 
 ### [`references/decision-framework.md`](.github/skills/data-architecture-designer/references/decision-framework.md)
 
 Defines how architectural decisions should be evaluated, including
-alternatives, trade-offs, complexity checks, architecture smells, and
-Architecture Decision Records (ADRs).
+alternatives, trade-offs, complexity checks, architecture smells, and ADRs.
 
 ### [`references/architecture-patterns.md`](.github/skills/data-architecture-designer/references/architecture-patterns.md)
 
@@ -155,16 +218,14 @@ Provides guidance for evaluating patterns such as:
 - Medallion Architecture;
 - Batch Processing;
 - Streaming;
-- Lambda;
-- Kappa;
+- Lambda and Kappa;
 - Event-Driven Architecture;
 - Data Mesh;
 - centralized, federated, and hybrid approaches.
 
 ### [`references/quality-attributes.md`](.github/skills/data-architecture-designer/references/quality-attributes.md)
 
-Provides guidance for evaluating architecturally significant quality
-attributes such as:
+Provides guidance for evaluating architecturally significant attributes such as:
 
 - latency and data freshness;
 - scalability;
@@ -179,33 +240,70 @@ attributes such as:
 
 ### [`template/architecture-output.md`](.github/skills/data-architecture-designer/template/architecture-output.md)
 
-Defines the output contract for a full architecture recommendation,
-including logical architecture, technology mapping, decisions, alternatives,
-trade-offs, risks, and ADRs.
+Defines the output contract for a full architecture recommendation, including:
+
+- business context;
+- requirements and assumptions;
+- quality attributes;
+- logical architecture;
+- technology mapping;
+- data flows;
+- architectural decisions;
+- ADRs;
+- alternatives;
+- trade-offs;
+- risks and mitigations.
 
 ### [`examples/`](.github/skills/data-architecture-designer/examples/)
 
 Contains scenarios used to test whether the Skill produces architecture
 proportional to the actual requirements.
 
-The first example deliberately tests whether the agent can resist unnecessary
-streaming, distributed processing, Kubernetes, Data Mesh, and other forms of
-architectural over-engineering.
+---
+
+## The Complexity Test
+
+Before adding significant architectural complexity, the Skill explicitly asks:
+
+```text
+Streaming
+└── What requirement cannot be satisfied with batch, incremental batch, or CDC?
+
+Distributed Processing
+└── What workload characteristic actually requires distributed processing?
+
+Kubernetes
+└── What deployment or operational requirement requires it?
+
+Multiple Processing Engines
+└── What distinct workload requires each engine?
+
+Multiple Serving Engines
+└── Why are overlapping analytical serving technologies necessary?
+
+Multiple Storage Platforms
+└── What requirement requires each persistent storage technology?
+
+Data Mesh
+└── What organizational scaling or ownership problem requires it?
+```
+
+If a component cannot justify its existence, the Skill should remove it.
 
 ---
 
-## Example
+## Example: resisting over-engineering
 
 Consider a company with:
 
-- ERP, CRM, and CSV data sources;
+- ERP, CRM, and CSV sources;
 - approximately 500 GB of historical data;
 - approximately 2 GB of daily changes;
 - dashboards refreshed once per day;
 - a small data engineering team;
 - predominantly structured analytical workloads.
 
-A technology-first approach might immediately propose:
+A technology-first architecture might immediately introduce:
 
 ```text
 Kafka
@@ -220,19 +318,86 @@ The Skill instead asks:
 
 > What requirement actually requires each of these components?
 
-For this scenario, daily batch ingestion and a simpler analytical platform
-may satisfy the requirements with significantly lower operational
-complexity.
+For this scenario, scheduled ingestion and a simpler analytical platform may
+satisfy the requirements with significantly lower operational complexity.
 
-See:
+See the full
+[`Batch Analytics Platform example`](.github/skills/data-architecture-designer/examples/batch-analytics-platform.md).
 
-[`examples/batch-analytics-platform.md`](.github/skills/data-architecture-designer/examples/batch-analytics-platform.md)
+---
+
+## Validation: does the Skill actually change agent behavior?
+
+The Skill has been tested with **GitHub Copilot Agent in VS Code** using the
+same insurance data-platform scenario before and after strengthening the
+Skill's execution rules.
+
+The scenario deliberately contained mixed requirements:
+
+```text
+Regulatory / Management Reporting
+Freshness requirement: up to 4 hours
+             │
+             ├── Batch / incremental processing is sufficient
+             │
+             │
+             └──────────────┐
+                            │
+                    Governed analytical
+                       foundation
+                            │
+             ┌──────────────┘
+             │
+             ├── Low-latency event processing required
+             │
+IoT Fraud Detection
+Freshness requirement: 15 seconds
+```
+
+### Initial behavior
+
+The agent identified the mixed latency requirements, but moved too quickly
+into vendor-specific technologies and introduced several overlapping
+platform capabilities.
+
+Logical architecture and technology selection were not sufficiently separated.
+
+### After strengthening the Skill
+
+The same prompt produced a materially more structured recommendation:
+
+| Architecture behavior | Initial | v0.2 |
+|---|:---:|:---:|
+| Requirements-first reasoning | Partial | Yes |
+| Explicit quality attributes | Partial | Yes |
+| Logical architecture before products | No | Yes |
+| Batch vs streaming justified separately | Yes | Yes |
+| Complexity challenge | Partial | Yes |
+| Technology mapping separated | No | Yes |
+| Alternatives evaluated | Partial | Yes |
+| Explicit trade-offs | Partial | Yes |
+| ADRs | Partial | Yes |
+| Assumptions surfaced | Partial | Yes |
+| Structured architecture output | No | Yes |
+
+The resulting recommendation used:
+
+- batch / micro-batch for policy, claims, and CRM workloads;
+- a dedicated low-latency path for IoT fraud detection;
+- a shared governed analytical foundation;
+- explicit lineage, privacy, security, and data-quality controls;
+- technology mapping only after the logical architecture had been established.
+
+This is not intended as a formal benchmark.
+
+It is a practical validation that encoding architecture reasoning as an Agent
+Skill can materially influence how an AI agent approaches the same problem.
 
 ---
 
 ## Architecture Decision Records
 
-Significant decisions can be expressed as ADRs.
+Significant decisions are documented using ADRs.
 
 Example:
 
@@ -260,90 +425,81 @@ Revisit when:
 Business requirements require materially lower data latency.
 ```
 
-This makes architecture decisions easier to understand, challenge, and
-revisit.
+The purpose is not merely to record the final technology choice.
+
+It is to preserve **why the decision was made**.
 
 ---
 
-## Using the Skill
+## Anti-Patterns
 
-Clone the repository or copy the Skill into a location supported by your
-AI coding agent.
+The Skill explicitly challenges:
 
-The core entry point is:
+### Resume-Driven Architecture
 
-```text
-SKILL.md
-```
+Selecting technologies because they are fashionable, interesting, or useful
+for a CV and then searching for requirements to justify them.
 
-Example request:
+### Vendor Catalogue Architecture
 
-```text
-Design a data architecture for an e-commerce platform.
+Representing an architecture as a collection of cloud services without
+demonstrating why each service exists.
 
-We have PostgreSQL, Salesforce and application events.
+### Diagram-Driven Complexity
 
-Approximately 5 TB of historical data is stored today and we expect
-100 GB of new data per day.
+Adding components because a more complex diagram appears more architectural.
 
-Finance reporting can tolerate a 4-hour delay, but fraud detection
-requires events within 10 seconds.
+### Real-Time by Default
 
-The platform must support BI, data science and regulatory lineage.
+Using streaming because low latency is technically possible rather than
+because the business requires it.
 
-Compare viable architectural approaches and explain the trade-offs.
-```
+### Distributed by Default
 
-The agent should use the Skill to determine which requirements justify
-batch processing, streaming, storage patterns, governance capabilities,
-and technology choices.
+Using distributed processing because a dataset is described as large without
+evaluating the actual workload.
 
----
+### Governance by Product
 
-## What this Skill intentionally avoids
+Assuming that deploying a catalog or governance product creates ownership,
+accountability, or data governance.
 
-This project is designed to challenge:
+### Future-Proofing Without Evidence
 
-- technology-first architecture;
-- unnecessary real-time processing;
-- premature distributed systems;
-- tool duplication;
-- governance as an afterthought;
-- unacknowledged vendor lock-in;
-- architecture driven primarily by technology trends.
-
-A complex architecture can be correct.
-
-**Complexity simply needs a reason.**
+Adding substantial complexity for hypothetical future requirements without
+credible evidence that they are likely.
 
 ---
 
 ## Status
 
-🚧 **Experimental / v0.1**
+**v0.2.0 — Experimental**
 
-This project is an experiment in encoding architectural decision-making into
-reusable AI Agent Skills.
+The current release establishes the first validated version of the architecture
+reasoning framework.
 
-It is expected to evolve through testing against different architecture
-scenarios.
+The project is intentionally experimental. Architecture decisions remain
+context-dependent and should be reviewed by qualified practitioners,
+particularly for regulated, safety-critical, or high-impact systems.
 
-Feedback, issues, and contributions are welcome.
+See the
+[latest release](https://github.com/paulojlima/data-architecture-designer/releases/latest).
 
 ---
 
 ## Roadmap
 
-Potential future improvements include:
+Potential future improvements:
 
 - [ ] additional architecture test scenarios;
-- [ ] real-time / event-driven example;
-- [ ] regulated financial-services example;
+- [ ] real-time / event-driven scenario;
+- [ ] regulated financial-services scenario;
 - [ ] architecture review mode;
 - [ ] cloud-specific technology mappings;
 - [ ] automated architecture quality checks;
 - [ ] additional ADR templates;
-- [ ] architecture diagram generation improvements.
+- [ ] improved architecture diagram generation;
+- [ ] validation with additional AI coding agents.
 
 ---
 
@@ -351,15 +507,19 @@ Potential future improvements include:
 
 Ideas, discussions, issues, and contributions are welcome.
 
-If you find an architecture scenario where the Skill makes a questionable
-decision, please open an issue and describe:
+A particularly useful contribution is an architecture scenario where the Skill
+makes a questionable decision.
+
+When opening an issue, include:
 
 1. the requirements;
 2. the recommendation produced;
-3. why you disagree with it;
-4. what alternative you would consider.
+3. the decision you disagree with;
+4. the alternative you would consider;
+5. the reasoning behind that alternative.
 
-Those cases are particularly useful for improving the decision framework.
+These cases help improve the decision framework rather than merely expand its
+technology catalogue.
 
 ---
 
